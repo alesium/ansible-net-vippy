@@ -7,7 +7,7 @@ net_vippy_service_socket_file: "/var/run/vippy.socket"
 net_vippy_working_dir: "/opt/local"
 net_vippy_config_file_src: "vippy.conf.j2"
 net_vippy_config_file_dest: "/opt/local/etc/vippy.conf"
-net_vippy_node_name: {{ ansible_hostname }}
+net_vippy_node_name: "{{ ansible_hostname }}"
 net_vippy_node_file: "/opt/local/etc/vippy.node"
 net_vippy_exec_file: "/opt/local/bin/vippyd"
 net_vippy_username: "root"
