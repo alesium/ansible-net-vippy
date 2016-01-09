@@ -7,6 +7,7 @@ net_vippy_service_socket_file: "/var/run/vippy.socket"
 net_vippy_working_dir: "/opt/local"
 net_vippy_config_file_src: "vippy.conf.j2"
 net_vippy_config_file_dest: "/opt/local/etc/vippy.conf"
+net_vippy_node_name: {{ ansible_hostname }}
 net_vippy_node_file: "/opt/local/etc/vippy.node"
 net_vippy_exec_file: "/opt/local/bin/vippyd"
 net_vippy_username: "root"
@@ -25,6 +26,6 @@ net_vippy_vips:
         - [{ interface: "net1", ip: "10.0.0.7/24" }, { interface: "net1", ip: "10.0.0.9/24" } ]
         - [{ interface: "net1", ip: "10.0.0.8/24" }]
 net_vippy_nodes:
-        - "mtl-dns-01"
-        - "mtl-dns-02"
+        - "node1"
+        - "node2"
 net_vippy_notify_arp_cache: { interface: "net1", ip: "10.0.0.255/24" }
