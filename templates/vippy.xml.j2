@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE service_bundle SYSTEM "/usr/share/lib/xml/dtd/service_bundle.dtd.1">
+<service_bundle
+    type="manifest"
+    name="{{ net_vippy_SmartOS_service_bundle_name }}">
+    <service
+	    name="{{ net_vippy_service_name }}"
+        type="service"
+        version="1">
+        <create_default_instance enabled="false" />
+        <single_instance />
+        <exec_method
+            type="method"
+            name="start"
+	    exec="{{ net_vippy_SmartOS_service_svc_file }} start"
+            timeout_seconds="30">
+	    <method_context working_directory="{{ net_vippy_working_dir }}">
+                <method_credential
+		user="{{ net_vippy_username }}"
+		group="{{ net_vippy_groupname }}"
+                privileges="basic,net_privaddr,sys_ip_config" />
+            </method_context>
+        </exec_method>
+        <exec_method
+            type="method"
+            name="stop"
+	    exec="{{ net_vippy_SmartOS_service_svc_file }} stop"
+            timeout_seconds="60">
+	    <method_context working_directory="{{ net_vippy_working_dir }}">
+                <method_credential
+			user="{{ net_vippy_username }}"
+			group="{{ net_vippy_groupname }}" />
+            </method_context>
+        </exec_method>
+        <stability value="Unstable" />
+        <template>
+            <common_name>
+                <loctext xml:lang="C">vippy</loctext>
+            </common_name>
+        </template>
+    </service>
+</service_bundle>

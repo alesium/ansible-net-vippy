@@ -1,0 +1,63 @@
+---
+
+- name: uninstall nodejs
+  pkgin: name=nodejs state=absent
+  ignore_errors: yes
+  tags:
+          - install
+          - vippy
+
+- name: install required packages
+  pkgin: name="{{ item }}" state="present"
+  ignore_errors: yes
+  with_items: "{{ net_vippy_packages }}"
+  tags:
+          - vippy
+          - install
+
+- name: install vippy
+  npm: name="{{ item }}" global="yes" state="present"
+  with_items:
+          - ife
+          - vippy
+  tags:
+          - vippy
+          - install
+
+- name: copy vippy configuration
+  command: src="{{ net_vippy_config_file_src }}" dest="{{ net_vippy_config_file_dest }}" backup="yes" owner="{{ net_vippy_username }}" group="{{ net_vippy_groupname }}" mode="0644"
+  notify: restart vippy
+  tags:
+          - vippy
+          - update
+
+- name: create vippy node
+  command : "echo {{ net_vippy_node_name }} > {{ net_vippy_node_file }}"
+  notify: restart vippy
+  tags:
+          - vippy
+          - install
+
+- name: copy vippy-svc
+  template: src="vippy-svc.j2" dest="{{ net_vippy_SmartOS_service_svc_file }}" backup="no" owner="{{ net_vippy_username }}" group="{{ net_vippy_groupname }}" mode="0755"
+  when: ansible_distribution == "SmartOS"
+  tags:
+        - vippy
+        - install
+
+- name: copy vippy smf
+  template: src="vippy.xml.j2" dest="{{ net_vippy_SmartOS_service_smf_file }}" backup="no" owner="{{ net_vippy_username }}" group="{{ net_vippy_groupname }}" mode="0644"
+  notify: enable vippy
+  when: ansible_distribution == "SmartOS"
+  tags:
+          - vippy
+          - install
+
+- name: import vippy smf
+  shell: "svccfg import {{ net_vippy_SmartOS_service_smf_file }}"
+  notify: enable vippy
+  when: ansible_distribution == "SmartOS"
+  tags:
+          - vippy
+          - install
+

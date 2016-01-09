@@ -1,0 +1,7 @@
+---
+
+- name: enable vippy
+  service: name="{{ net_vippy_service_name }}" state="started" enabled="yes"
+
+- name: restart vippy
+  service: name="{{ net_vippy_service_name }}" state="restarted"
