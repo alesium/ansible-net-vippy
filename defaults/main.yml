@@ -1,31 +1,12 @@
-net_vippy_packages:
-        - nodejs-0.10.40
-        - gmake
-        - gcc47
-net_vippy_service_name: "pkgsrc/vippy"
-net_vippy_service_socket_file: "/var/run/vippy.socket"
-net_vippy_working_dir: "/opt/local"
-net_vippy_config_file_src: "vippy.conf.j2"
-net_vippy_config_file_dest: "/opt/local/etc/vippy.conf"
-net_vippy_node_name: "{{ ansible_hostname }}"
-net_vippy_node_file: "/opt/local/etc/vippy.node"
-net_vippy_exec_file: "/opt/local/bin/vippyd"
-net_vippy_username: "root"
-net_vippy_groupname: "root"
-net_vippy_SmartOS_service_smf_file: "/opt/local/lib/svc/manifest/vippy.xml"
-net_vippy_SmartOS_service_svc_file: "/opt/local/lib/svc/method/vippy-svc"
-net_vippy_SmartOS_service_bundle_name: "vippy"
-#
-# Optional
-# Depends on own vippy.conf.j2
-#
-net_vippy_chat: "224.1.1.1:5007"
-net_vippy_chat_interface: "all"
-net_vippy_chat_secret: "knsdfagajgajkahkjnsdfkjnweroib0u3"
-net_vippy_vips:
-        - [{ interface: "net1", ip: "10.0.0.7/24" }, { interface: "net1", ip: "10.0.0.9/24" } ]
-        - [{ interface: "net1", ip: "10.0.0.8/24" }]
-net_vippy_nodes:
-        - "node1"
-        - "node2"
-net_vippy_notify_arp_cache: { interface: "net1", ip: "10.0.0.255/24" }
+net_ucarp_packages:
+        - ucarp
+net_ucarp_service_name: "pkgsrc/ucarp"
+net_ucarp_config_file_src: "ucarp.conf.j2"
+net_ucarp_config_file_dest: "/opt/local/etc/ucarp.conf"
+net_ucarp_exec_file: "/opt/local/sbin/ucarp"
+net_ucarp_vip_script_location: "/opt/local/libexec/ucarp"
+net_ucarp_vip_up_exec_file_src: "vip-up.sh"
+net_ucarp_vip_down_exec_file_src: "vip-down.sh"
+net_ucarp_SmartOS_service_smf_file: "/opt/local/lib/svc/manifest/ucarp.xml"
+net_ucarp_SmartOS_service_svc_file: "/opt/local/lib/svc/method/ucarp-svc"
+net_ucarp_SmartOS_service_bundle_name: "ucarp"
